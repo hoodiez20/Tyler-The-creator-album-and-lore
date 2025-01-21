@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tyler, the Creator</title>
+    <meta name="description" content="Explore the music, albums, and the evolution of Tyler, the Creator, a visionary artist behind the music you love.">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap">
+    
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #101018; 
+            color: #ffffff; 
+            overflow-x: hidden;
+        }
+
+        header {
+            position: relative;
+            text-align: center;
+            padding: 50px 50px;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 99, 71, 0.8)), url('land4.jfif') no-repeat center center;
+            background-size: cover; 
+            color: #13194e;
+        }
+
+        header h1 {
+            font-size: 60px;
+            margin: 0;
+            color: #ff6347; 
+        }
+
+        header p {
+            font-size: 24px;
+            margin: 10px 0 0;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #2c2c2c; 
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 18px;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        nav a:hover, nav a.active {
+            color: #ff6347;
+        }
+
+        .content {
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .hero h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #ff6347;
+        }
+
+        .albums {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background-color: #2c2c2c; 
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 20px;
+        }
+
+        .card-content h3 {
+            margin: 0;
+            font-size: 20px;
+            color: #ff6347;
+        }
+
+        .card-content p {
+            margin: 10px 0 0;
+            font-size: 16px;
+            color: #b3b3b3;
+        }
+
+        footer {
+            background-color: #2c2c2c; 
+            color: #b3b3b3;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        footer a {
+            color: #ff6347;
+            text-decoration: none;
+        }
+
+        .music-page {
+            display: none;
+            padding: 40px 20px;
+        }
+
+        .music-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .music-box {
+            background-color: #202020;
+            border-radius: 10px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+            margin-bottom: 20px; 
+        }
+
+        .music-box img {
+            border-radius: 10px;
+            height: 150px; 
+            width: 150px; 
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+
+        .music-box h3 {
+            font-size: 16px;
+            color: #ff6347;
+            margin: 10px 0 5px;
+        }
+
+        .music-box p {
+            font-size: 14px;
+            color: #b3b3b3;
+            margin: 0 0 10px;
+        }
+
+        .music-controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .music-controls button {
+            background-color: #ff6347;
+            border: none;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+
+        .music-controls button:hover {
+            background-color: #003006;
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 5px;
+            background: #b3b3b3;
+            border-radius: 5px;
+            margin: 10px 0;
+            position: relative;
+            cursor: pointer; 
+        }
+
+        .progress {
+            height: 100%;
+            background: #ff6347;
+            border-radius: 5px;
+            width: 0;
+            transition: width 0.1s;
+        }
+
+        .timer {
+            font-size: 14px;
+            color: #b3b3b3;
+        }
+
+        .back-button {
+            background-color: #ff6347;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            display: none; 
+        }
+
+        .slideshow-container {
+            position: relative;
+            max-width: 100%;
+            margin: auto;
+        }
+
+        .slides {
+            display: none;
+        }
+
+        .slideshow-image {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        /* Volume Slider Styles */
+        #volume-control {
+            -webkit-appearance: none;
+            width: 20%;
+            height: 5px;
+            background: #b3b3b3;
+            border-radius: 5px;
+            outline: none;
+            margin: 10px 0;
+        }
+
+        #volume-control::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 15px;
+            height: 15px;
+            background: #ff6347;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        #volume-control::-moz-range-thumb {
+            width: 15px;
+            height: 15px;
+            background: #ff6347;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        /* Volume Label Styles */
+        .volume-label {
+            font-size: 12px;
+            color: #b3b3b3;
+            margin-right: 10px;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 40px;
+            }
+
+            header p {
+                font-size: 18px;
+            }
+
+            nav a {
+                margin: 0 10px;
+                font-size: 16px;
+            }
+
+            .hero h2 {
+                font-size: 28px;
+            }
+
+            .music-box img {
+                width: 100%;
+                height: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Tyler, the Creator</h1>
+        <p>The visionary artist behind the music you love</p>
+    </header>
+    <nav>
+        <a href="#home" onclick="showPage('home')" class="active">Home</a>
+        <a href="#about" onclick="showPage('about')">About</a>
+        <a href="#albums" onclick="showPage('albums')">Album & Music</a>
+        <a href="#article" onclick="showPage('article')">Article</a> 
+    </nav>
+
+    <!-- Home Section -->
+    <div class="content" id="home">
+        <div class="hero">
+            <h2>Welcome to Ebrons TTCFW website!</h2>
+            <p>Explore the music, albums, and the evolution of one of the most innovative artists of our time.</p>
+            <h3>Videos From my guy ty ty</h3>
+            <div>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/fTZhdUlCjvk" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <div class="content" id="about" style="display: none;">
+        <div class="hero">
+            <h2>About Tyler, the Creator</h2>
+            <p>Tyler Gregory Okonma, known professionally as Tyler, the Creator, is an American rapper, singer, songwriter, and record producer. His music blends creativity, emotion, and storytelling, earning him numerous accolades, including Grammy Awards. Tyler learned how to produce music by experimenting with software like GarageBand. He didn’t have formal training in music production, yet he became renowned for his distinct sound.</p>
+        </div>
+    </div>
+
+    <div class="content" id="albums" style="display: none;">
+        <h2>Albums</h2>
+        <div class="albums">
+            <div class="card" onclick="showMusic('bastard')">
+                <img src="bastard.jfif" alt="Bastard">
+                <div class="card-content">
+                    <h3>Bastard (2009)</h3>
+                    <p>Tyler's debut mixtape that established his unique style and fearless lyricism.</p>
+                </div>
+            </div>
+            <div class="card" onclick="showMusic('goblin')">
+                <img src="goblin.jfif" alt="Goblin">
+                <div class="card-content">
+                    <h3>Goblin (2011)</h3>
+                    <p>Tyler's first studio album that delves into dark themes and bold experimentation.</p>
+                </div>
+            </div>
+            <div class="card" onclick="showMusic('wolf')">
+                <img src="wolf.jfif" alt="Wolf">
+                <div class="card-content">
+                    <h3>Wolf (2013)</h3>
+                    <p>An album blending vivid storytelling with jazzy production and raw emotion.</p>
+                </div>
+            </div>
+            <div class="card" onclick="showMusic('cherrybomb')">
+                <img src="cherrybomb.jfif" alt="Cherry Bomb">
+                <div class="card-content">
+                    <h3>Cherry Bomb (2015)</h3>
+                    <p>A chaotic yet innovative project pushing the boundaries of sound and style.</p>
+                </div>
+            </div>
+            <div class="card" onclick="showMusic('flowerboy')">
+                <img src="Tyler, the Creator wallpaper 1920x250.jfif" alt="Flower Boy">
+                <div class="card-content">
+                    <h3>Flower Boy (2017)</h3>
+                    <p>A lush and introspective album that explores themes of loneliness, love, and self-discovery.</p>
+                </div>
+            </div>
+            <div class="card" onclick="showMusic('igor')">
+                <img src="igor.jfif" alt="IGOR">
+                <div class="card-content">
+                    <h3>IGOR (2019)</h3>
+                    <p>An experimental and soulful album that tells the story of heartbreak and acceptance.</p>
+                </div>
+            </div>
+            <div class="card" onclick="showMusic('callmeifyougetlost')">
+                <img src="callme.jfif" alt="Call Me If You Get Lost"> <!-- Album cover -->
+                <div class="card-content">
+                    <h3>Call Me If You Get Lost (2021)</h3>
+                    <p>A journey through Tyler's mind, blending personal stories with a diverse soundscape.</p>
+                </div>
+            </div>
+            <div class="card" onclick="showMusic('chromakopia')">
+                <img src="chromakopia.jfif" alt="Chromakopia">
+                <div class="card-content">
+                    <h3>Chromakopia (2024)</h3>
+                    <p>"Chromakopia" is Tyler's latest project, showcasing his evolution as an artist.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="music-page" id="music" style="display: none;">
+        <button class="back-button" id="back-button" onclick="showPage('albums')">Back</button>
+        <h2 id="album-title">Album Title</h2>
+        <div class="music-container" id="music-container"></div>
+    
+        <div class="current-song" id="current-song" style="display: none;">
+            <div class="current-song-info">
+                <h3 id="current-song-title">Song Title</h3>
+                <p id="current-album-title">Album Title</p>
+                <div class="progress-container" onclick="setProgress(event)">
+                    <div class="progress" id="current-progress"></div>
+                </div>
+                <div class="timer" id="current-timer">0:00</div>
+                <div class="music-controls">
+                    <button id="play-pause-btn" onclick="playPauseCurrent()">Play</button>
+                    <span class="volume-label">Volume:</span>
+                    <input type="range" id="volume-control" min="0" max="1" step="0.1" value="1" onchange="setVolume(this.value)">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let currentAudio = null;
+        let currentVolume = 1; // Store the current volume level
+
+        function showPage(pageId) {
+            const sections = ['home', 'about', 'albums', 'music', 'article'];
+            sections.forEach(section => {
+                document.getElementById(section).style.display = (section === pageId) ? 'block' : 'none';
+            });
+            document.querySelectorAll('nav a').forEach(link => {
+                link.classList.remove('active');
+            });
+            document.querySelector(`nav a[href="#${pageId}"]`).classList.add('active');
+        }
+
+        function showMusic(album) {
+            const albumTitles = {
+                'bastard': 'Bastard (2009)',
+                'goblin': 'Goblin (2011)',
+                'wolf': 'Wolf (2013)',
+                'cherrybomb': 'Cherry Bomb (2015)',
+                'flowerboy': 'Flower Boy (2017)',
+                'igor': 'IGOR (2019)',
+                'callmeifyougetlost': 'Call Me If You Get Lost (2021)',
+                'chromakopia': 'Chromakopia (2024)'
+            };
+
+            const songs = {
+                'bastard': [
+                    { title: 'Odd Toddlers', src: 'Odd Toddlers feat Casey Veggies.mp3' },
+                    { title: 'French', src: 'French feat Hodgy Beats.mp3' },
+                    { title: 'Awkward', src: 'Awkward.mp3' },
+                    { title: 'VCR', src: 'VCR Wheels.mp3' },
+                    { title: 'Bastard', src: 'Bastard.mp3' },
+                ],
+                'goblin': [
+                    { title: 'Yonkers', src: 'Yonkers.mp3' },
+                    { title: 'Sandwitches', src:'Sandwitches.mp3' },
+                    { title: 'Transylvania', src: 'Transylvania.mp3' },                
+                    { title: 'Golden', src: 'Golden.mp3' },
+                ],
+                'wolf': [
+                    { title: 'Wolf', src: 'Wolf.mp3' },
+                    { title: 'Awkward', src: 'Awkward.mp3' },
+                    { title: 'Slater', src: 'Slater.mp3' },
+                    { title: 'Domo23', src: 'Domo23.mp3' },
+                    { title: 'Tamale', src: 'Tamale.mp3' },
+                ],
+                'cherrybomb': [
+                    { title: 'DEATHCAMP', src: 'DEATHCAMP.mp3' },
+                    { title: 'Buffalo', src: 'Buffalo.mp3' },
+                    { title: 'Find Your Wings', src: 'Find Your Wings.mp3' },
+                    { title: 'Cherry Bomb', src: 'Cherry Bomb.mp3' },
+                    { title: 'Blow My Load', src: 'Blow My Load.mp3' },
+                ],
+                'flowerboy': [
+                    { title: 'See You Again', src: 'See You Again.mp3' },
+                    { title: 'Who Dat Boy', src: 'Who Dat Boy.mp3' },
+                    { title: '911', src: '911.mp3' },
+                    { title: 'Boredom', src: 'Boredom.mp3' },
+                    { title: 'I Aint Got Time', src: 'Time.mp3' },
+                ],
+                'igor': [
+                    { title: 'IGORsTheme', src: 'IGOR Theme.mp3' },
+                    { title: 'Earfquake', src: 'Earfquake.mp3' },
+                    { title: 'I Think', src: 'I Think.mp3' },
+                    { title: 'Running Out of Time', src: 'Running Out of Time.mp3' },
+                    { title: 'New Magic Wand', src: 'New Magic Wand.mp3' },
+                ],
+                'callmeifyougetlost': [
+                    { title: 'SIR BAUDELAIRE', src: 'SIR BAUDELAIRE.mp3' },
+                    { title: 'CORSO', src: 'CORSO.mp3' },
+                    { title: 'WUSYANAME', src: 'WUSYANAME.mp3' },
+                    { title: 'LEMONHEAD', src: 'LEMONHEAD.mp3' },
+                    { title: 'RUNITUP', src: 'RUNITUP.mp3' },
+                ],
+                'chromakopia': [
+                    { title: 'Like Him', src: 'Like Him.mp3' },
+                    { title: 'Darling I', src: 'darlingi.mp3' },
+                    { title: 'St.Chroma', src: 'St. Chroma.mp3' },
+                    { title: 'Sticky', src: 'Sticky.mp3' },
+                    { title: 'IHYFYWH', src: 'IHYFYWH.mp3' },
+                ],
+            };
+
+            document.getElementById('album-title').innerText = albumTitles[album];
+            const musicContainer = document.getElementById('music-container');
+            musicContainer.innerHTML = '';
+
+            songs[album].forEach(song => {
+                const songBox = document.createElement('div');
+                songBox.className = 'music-box';
+                songBox.innerHTML = `
+                    <h3>${song.title}</h3>
+                    <div class="music-controls">
+                        <button onclick="playSong('${song.src}', '${song.title}', '${album}')">Play</button>
+                    </div>
+                `;
+                musicContainer.appendChild(songBox);
+            });
+
+            document.getElementById('back-button').style.display = 'block'; 
+            document.getElementById('music').style.display = 'block'; 
+            document.getElementById('albums').style.display = 'none'; 
+        }
+
+        function playSong(src, title, album) {
+            if (currentAudio) {
+                currentAudio.pause();
+            }
+
+            currentAudio = new Audio(src);
+            currentAudio.volume = currentVolume; // Set the volume to the current level
+            currentAudio.play();
+            document.getElementById('current-song-title').innerText = title;
+            document.getElementById('current-album-title').innerText = album;
+            document.getElementById('current-song').style.display = 'block';
+            document.getElementById('play-pause-btn').innerText = 'Pause';
+
+            updateProgress();
+        }
+
+        function playPauseCurrent() {
+            if (currentAudio.paused) {
+                currentAudio.play();
+                document.getElementById('play-pause-btn').innerText = 'Pause';
+            } else {
+                currentAudio.pause();
+                document.getElementById('play-pause-btn').innerText = 'Play';
+            }
+        }
+
+        function setVolume(value) {
+            currentVolume = value; // Update the current volume level
+            if (currentAudio) {
+                currentAudio.volume = value; // Set the volume of the current audio
+            }
+            // Update the volume label
+            document.querySelector('.volume-label').innerText = `Volume: ${(value * 100).toFixed(0)}%`;
+        }
+
+        function updateProgress() {
+            const progress = document.getElementById('current-progress');
+            const timer = document.getElementById('current-timer');
+
+            currentAudio.ontimeupdate = function () {
+                const percent = (currentAudio.currentTime / currentAudio.duration) * 100;
+                progress.style.width = percent + '%';
+                timer.innerText = formatTime(currentAudio.currentTime);
+            };
+        }
+
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+
+        function setProgress(event) {
+            const progressContainer = document.querySelector('.progress-container');
+            const offsetX = event.offsetX;
+            const totalWidth = progressContainer.offsetWidth;
+            const percentage = offsetX / totalWidth;
+            const newTime = percentage * currentAudio.duration;
+
+            currentAudio.currentTime = newTime;
+            updateProgress(); 
+        }
+
+        let slideIndex = 0;
+        showSlides();
+
+        function showSlides() {
+            const slides = document.getElementsByClassName("slides");
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";  
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) {slideIndex = 1}    
+            slides[slideIndex - 1].style.display = "block";  
+            setTimeout(showSlides, 3000); 
+        }
+    </script>
+
+    <div class="content" id="article" style="display: none;"> 
+        <div class="hero">
+            <h2>The Evolution of Tyler, the Creator</h2>
+            <div class="slideshow-container">
+                <div class="slides">
+                    <img class="slideshow-image" src="land3.jfif" alt="Image 1">
+                </div>
+                <div class="slides">
+                    <img class="slideshow-image" src="land1.jfif" alt="Image 2">
+                </div>
+            </div>
+            <p>Tyler, the Creator, Tyler Gregory Okonma born on March 6, 1991, in Ladera Heights, California, is a multifaceted artist known for his innovative approach to music and visual art. He first gained prominence as the leader of the alternative hip-hop collective Odd Future, which became a cultural phenomenon in the early 2010s. Tyler's unique style, characterized by its boldness and creativity, has set him apart in the music industry. His debut mixtape, "Bastard," released in 2009, showcased his raw talent and fearless lyricism, laying the groundwork for his future success.</p>
+            <p>As Tyler's career progressed, he continued to push the boundaries of hip-hop. His first studio album, "Goblin," released in 2011, delved into darker themes and showcased his growth as a producer and lyricist. The album's lead single, "Yonkers," became a viral sensation, further establishing Tyler as a force to be reckoned with. With each subsequent release, including "Wolf," "Cherry Bomb," and "Flower Boy," Tyler explored new sounds and themes, often reflecting his personal experiences and struggles. His ability to blend genres, from rap to jazz to R&B, has earned him critical acclaim and a dedicated fanbase.</p>
+            <p>In 2019, Tyler released "IGOR," an album that marked a significant departure from his earlier work. The project was a sonic exploration of love and heartbreak, showcasing his growth as an artist and his willingness to experiment with new sounds. "IGOR" received widespread acclaim, winning the Grammy Award for Best Rap Album and solidifying Tyler's status as a leading figure in contemporary music. His artistic vision extends beyond music; Tyler is also known for his fashion sense, visual art, and television projects, including the animated series "The Jellies!" and the reality show "Loiter Squad."</p>
+            <p>Tyler's latest project, "Call Me If You Get Lost," released in 2021, further exemplifies his evolution as an artist. The album features a mix of braggadocio and introspection, showcasing his lyrical prowess and storytelling ability. Tyler's influence on the music industry is undeniable, as he continues to inspire a new generation of artists with his creativity and authenticity. As he embarks on new artistic ventures, fans eagerly anticipate what Tyler, the Creator will bring to the table next.</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 ebron tobey. All Rights Reserved. | <a href="https://www.youtube.com/watch?v=Aq5WXmQQooo">Tyty</a></p>
+        <div>
+            <a href="https://twitter.com/tylerthecreator" target="_blank">Twitter</a> |
+            <a href="https://www.instagram.com/tylerthecreator/" target="_blank">Instagram</a> |
+            <a href="https://www.facebook.com/tylerthecreator" target="_blank">Facebook</a>
+        </div>
+    </footer>
+</body>
+</html>
